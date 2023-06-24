@@ -59,14 +59,14 @@ Page resource error:
   isForMainFrame: ${error.isForMainFrame}
           ''');
           },
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              debugPrint('blocking navigation to ${request.url}');
-              return NavigationDecision.prevent;
-            }
-            debugPrint('allowing navigation to ${request.url}');
-            return NavigationDecision.navigate;
-          },
+          // onNavigationRequest: (NavigationRequest request) {
+          //   if (request.url.startsWith('https://www.youtube.com/')) {
+          //     debugPrint('blocking navigation to ${request.url}');
+          //     return NavigationDecision.prevent;
+          //   }
+          //   debugPrint('allowing navigation to ${request.url}');
+          //   return NavigationDecision.navigate;
+          // },
           onUrlChange: (UrlChange change) {
             debugPrint('url change to ${change.url}');
           },
@@ -80,7 +80,7 @@ Page resource error:
           );
         },
       )
-      ..loadRequest(Uri.parse('https://flutter.dev'));
+      ..loadRequest(Uri.parse('https://erp.thekape.com/'));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
