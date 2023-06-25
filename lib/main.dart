@@ -4,8 +4,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: WebViewExample()));
+    debugShowCheckedModeBanner: false, home: WebViewExample()));
 
 class WebViewExample extends StatefulWidget {
   const WebViewExample({super.key});
@@ -16,6 +15,8 @@ class WebViewExample extends StatefulWidget {
 
 class _WebViewExampleState extends State<WebViewExample> {
   late final WebViewController _controller;
+  int progress = 0;
+  bool showProgress = false;
 
   @override
   void initState() {
@@ -28,12 +29,13 @@ class _WebViewExampleState extends State<WebViewExample> {
         allowsInlineMediaPlayback: true,
         mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
       );
-    } else {
+    }
+    else {
       params = const PlatformWebViewControllerCreationParams();
     }
 
     final WebViewController controller =
-    WebViewController.fromPlatformCreationParams(params);
+        WebViewController.fromPlatformCreationParams(params);
     // #enddocregion platform_features
 
     controller
@@ -43,14 +45,26 @@ class _WebViewExampleState extends State<WebViewExample> {
         NavigationDelegate(
           onProgress: (int progress) {
             debugPrint('WebView is loading (progress : $progress%)');
+            setState(() {
+              this.progress = progress;
+            });
           },
           onPageStarted: (String url) {
             debugPrint('Page started loading: $url');
+            showProgress=true;
+            setState(() {
+            });
           },
           onPageFinished: (String url) {
             debugPrint('Page finished loading: $url');
+            showProgress=false;
+            setState(() {
+
+            });
           },
           onWebResourceError: (WebResourceError error) {
+            showProgress=false;
+            setState(() {});
             debugPrint('''
 Page resource error:
   code: ${error.errorCode}
@@ -98,33 +112,28 @@ Page resource error:
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
         backgroundColor: Colors.black,
-        title: const Text('App Name',style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'App Name',
+          style: TextStyle(color: Colors.white),
+        ),
         // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
         actions: <Widget>[
           NavigationControls(webViewController: _controller),
           // SampleMenu(webViewController: _controller),
         ],
       ),
-      body: WebViewWidget(controller: _controller),
-      // floatingActionButton: favoriteButton(),
+      body: Stack(
+        children: [
+          WebViewWidget(controller: _controller),
+          if(showProgress)
+          const Center(child: CircularProgressIndicator(),)
+        ],
+      ),
+
+      // floatingActionButton: showProgress ? FloatingActionButton(onPressed: () {  },child: Text(progress.toString()),):null,
     );
   }
-
-  // Widget favoriteButton() {
-  //   return FloatingActionButton(
-  //     onPressed: () async {
-  //       final String? url = await _controller.currentUrl();
-  //       if (context.mounted) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(content: Text('Favorited $url')),
-  //         );
-  //       }
-  //     },
-  //     child: const Icon(Icons.favorite),
-  //   );
-  // }
 }
 
 class NavigationControls extends StatelessWidget {
