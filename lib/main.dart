@@ -95,15 +95,11 @@ Page resource error:
         },
       )
       ..loadRequest(Uri.parse('https://erp.thekape.com/'));
-
-    // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);
       (controller.platform as AndroidWebViewController)
           .setMediaPlaybackRequiresUserGesture(false);
     }
-    // #enddocregion platform_features
-
     _controller = controller;
   }
 
@@ -130,8 +126,6 @@ Page resource error:
           const Center(child: CircularProgressIndicator(),)
         ],
       ),
-
-      // floatingActionButton: showProgress ? FloatingActionButton(onPressed: () {  },child: Text(progress.toString()),):null,
     );
   }
 }
