@@ -108,15 +108,20 @@ Page resource error:
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          'App Name',
-          style: TextStyle(color: Colors.white),
-        ),
+        title:
+        Row(children: [
+          Image.asset("assets/logo.jpeg",height: 30,),
+          Container(width: 10,),
+          const Text(
+            'Easy Resto',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],),
         // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
-        actions: <Widget>[
-          NavigationControls(webViewController: _controller),
-          // SampleMenu(webViewController: _controller),
-        ],
+        // actions: <Widget>[
+        //   NavigationControls(webViewController: _controller),
+        //   // SampleMenu(webViewController: _controller),
+        // ],
       ),
       body: Stack(
         children: [
