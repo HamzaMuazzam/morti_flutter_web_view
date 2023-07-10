@@ -3,8 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false, home: WebViewExample()));
+void main() => runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: WebViewExample()));
 
 class WebViewExample extends StatefulWidget {
   const WebViewExample({super.key});
@@ -94,7 +93,7 @@ Page resource error:
           );
         },
       )
-      ..loadRequest(Uri.parse('https://erp.thekape.com/'));
+      ..loadRequest(Uri.parse('https://restonewaeuat.azurewebsites.net/report/#/easyrestotableorder/CITHO/28/38'));
     if (controller.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);
       (controller.platform as AndroidWebViewController)
